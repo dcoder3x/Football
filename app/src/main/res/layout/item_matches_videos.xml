@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/matches_videos_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="6dp"
+    android:elevation="8dp"
+    tools:targetApi="LOLLIPOP"
+    app:cardCornerRadius="10dp">
+    <ImageView
+        android:id="@+id/matches_videos_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"/>
+    <TextView
+        android:id="@+id/matches_videos_title"
+        android:layout_marginTop="160dp"
+        android:textSize="20sp"
+        android:padding="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                tools:context="com.app.football.main.sort.PagerFragment">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/ranking_tab"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#3B4A6B"
+        app:tabTextColor="#fff"
+        app:tabSelectedTextColor="#F23557"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分"/>
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="球员榜"/>
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="球队榜"/>
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="赛程"/>
+    </android.support.design.widget.TabLayout>
+    <FrameLayout
+        android:id="@+id/content_for_ranking"
+        android:layout_below="@id/ranking_tab"
+        android:background="#3B4A6B"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+</RelativeLayout>
