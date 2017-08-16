@@ -3,6 +3,7 @@ package com.app.football.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -79,6 +82,9 @@ public class MainActivity extends AppCompatActivity
         BottomNavItemListener listener = new BottomNavItemListener();
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(listener);
+        BottomNavigationItemView item = (BottomNavigationItemView) bottomNavigationView.findViewById(R.id.bottom_menu_whatshot);
+        item.setOnTouchListener(new ScrollToTop());
+
         //启动后设置底部导航栏的第一个fragment处于选中状态
         // mToolbar.setTitle()在这里不起作用
         getSupportActionBar().setTitle("动态");
@@ -319,6 +325,25 @@ public class MainActivity extends AppCompatActivity
             }
             fragmentTransaction.commit();
             return true;
+        }
+    }
+
+    // scroll to top listener
+    private class ScrollToTop implements View.OnTouchListener {
+        private long clickTime = 0;
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (MotionEvent.ACTION_UP == event.getAction()) {
+                Log.d(TAG + "menu item", "clicked");
+                long now = System.currentTimeMillis();
+                long interval = now - clickTime;
+                clickTime = now;
+                if (interval < 500 && mWhatsHotFragment != null) {
+                    TrendingFragment fragment = (TrendingFragment) mWhatsHotFragment;
+                    fragment.scrollToTop();
+                }
+            }
+            return false;
         }
     }
 }

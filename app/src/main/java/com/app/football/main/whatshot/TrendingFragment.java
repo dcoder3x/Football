@@ -68,6 +68,15 @@ public class TrendingFragment extends Fragment implements TrendingContract.View,
         return view;
     }
 
+    /**
+     *  scroll to top when double click bottom first item.
+     */
+    public void scrollToTop() {
+        if (mWhatsHotRecyclerView != null) {
+            mWhatsHotRecyclerView.smoothScrollToPosition(0);
+        }
+    }
+
     private void showProgressBar() {
         MainActivity mainActivity = (MainActivity) getActivity();
         if (mainActivity != null)

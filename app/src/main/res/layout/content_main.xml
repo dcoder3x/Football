@@ -28,8 +28,11 @@
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_menu">
+        android:background="@android:color/white"
+        app:itemIconTint="@drawable/bottom_nav_item_color"
+        app:itemTextColor="@drawable/bottom_nav_item_color"
+        app:menu="@menu/bottom_menu"
+        app:elevation="16dp">
     </android.support.design.widget.BottomNavigationView>
 
 </LinearLayout>
