@@ -3,6 +3,7 @@ package com.app.football.main.whatshot.detail;
 
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,37 +38,37 @@ public class TrendingDetailActivity extends AppCompatActivity implements DetailC
     private Bundle mBundle;
     private CollapsingToolbarLayout mToolbarLayout;
     private ImageView mImageView;
+    private FloatingActionButton mFloatingActionButton;
+    private DetailPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_hot_detail);
+        initView();
+        shareArticle();
+
+        // 加载文章内容
+        mPresenter.init(mBundle.getString("url"));
+    }
+
+    private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // 网页视频闪烁问题
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar_2);
         //mToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         mWebView = (WebView) findViewById(R.id.web_view);
         mBundle = getIntent().getExtras();
         mToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         mImageView = (ImageView) findViewById(R.id.toolbar_image);
-
+        mPresenter = new DetailPresenter(this);
         // 加载评论框
         CyanSdk.getInstance(this).addCommentToolbar(this, mBundle.getString("id"), mBundle.getString("title"), mBundle.getString("url"));
-
-        // 加载文章内容
-        new DetailPresenter(this).init(mBundle.getString("url"));
     }
 
 
@@ -75,7 +76,7 @@ public class TrendingDetailActivity extends AppCompatActivity implements DetailC
     public void showWeb(String html) {
         // title and top image.
         mToolbarLayout.setTitle(mBundle.getString("title"));
-        // 跟顶部slider尺寸一致
+        // 跟顶部slider尺寸一致, 有的时候会崩溃，可能是图片链接的问题。
         Picasso.with(this).load(MyUtil.adjustImageSize(mBundle.getString("thumb"))).into(mImageView);
 
         WebSettings settings = mWebView.getSettings();
@@ -92,6 +93,22 @@ public class TrendingDetailActivity extends AppCompatActivity implements DetailC
     }
 
     @Override
+    public void shareArticle() {
+        // TODO
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, mBundle.getString("url"));
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
+
+    }
+
+    @Override
     public void showProgressBar() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -99,6 +116,13 @@ public class TrendingDetailActivity extends AppCompatActivity implements DetailC
     @Override
     public void closeProgressBar() {
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mWebView = null;
+        mBundle = null;
     }
 
     private class WebClient2 extends WebViewClient {

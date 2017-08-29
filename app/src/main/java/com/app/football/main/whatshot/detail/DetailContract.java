@@ -15,5 +15,7 @@ class DetailContract {
     }
     interface View extends BaseView {
         void showWeb(String html);
+
+        void shareArticle();
     }
 }
