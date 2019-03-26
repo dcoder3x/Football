@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class Spider {
 
-    private static final String HOME_URL = "http://www.fullmatchesandshows.com/";
+    private static final String HOME_URL = "https://www.fullmatchesandshows.com/";
 
 
     private ArrayList<VideosTitleAndThumb> mList = new ArrayList<>();
