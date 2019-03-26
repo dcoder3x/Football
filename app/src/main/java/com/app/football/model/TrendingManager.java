@@ -24,7 +24,7 @@ public class TrendingManager {
 
     private static final String TAG = "TrendingManager";
 
-    private static final String TRENDING_URL = "http://api.dongqiudi.com/app/tabs/android/1.json?mark=gif";
+    private static final String TRENDING_URL = "https://api.dongqiudi.com/app/tabs/android/1.json?mark=gif";
 
     private static String REFRESH_URL = "";
 
